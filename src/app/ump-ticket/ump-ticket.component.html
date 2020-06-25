@@ -16,10 +16,6 @@
                                 {{option.name}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="submitTicketForm.get('projectName').invalid">
-                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('ticketCause')">
-                            </input-error> -->
-                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="">
@@ -42,10 +38,6 @@
                                 {{option}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="submitTicketForm.get('ticketCause').invalid">
-                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('ticketCause')">
-                            </input-error> -->
-                        </mat-error>
                     </mat-form-field>
                 </div>
 
@@ -53,10 +45,6 @@
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Description" nullValue required formControlName="description">
 
-                        <mat-error *ngIf="submitTicketForm.get('description').invalid">
-                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('description')">
-                            </input-error> -->
-                        </mat-error>
 
                     </mat-form-field>
                 </div>
@@ -65,10 +53,6 @@
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Execution Url" nullValue  required formControlName="executionUrl">
 
-                        <mat-error *ngIf="submitTicketForm.get('executionUrl').invalid">
-                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('executionUrl')">
-                            </input-error> -->
-                        </mat-error>
 
                     </mat-form-field>
                 </div>
