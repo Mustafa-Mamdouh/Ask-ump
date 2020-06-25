@@ -16,7 +16,7 @@ export class UmpTicketComponent implements OnInit {
   submitTicketForm: FormGroup = new FormGroup({});
   ticketCauses = ["ACL Request", "Question", "Flow Failure"];
   submitting = false;
-  response;
+  response : any  = { projects:[]};
   constructor(private fb: FormBuilder, private notify: NotificationBuilderService, private snackBar: MatSnackBar,
     private jiraIntegrationService: JiraIntegrationService) {
     this.buildForm();

@@ -11,7 +11,7 @@
 
                 <div class="col-sm-12">
                     <mat-form-field class="full-width">
-                        <mat-select placeholder="Project Name"  (selectionChange)="selected($event)" formControlName="projectName">
+                        <mat-select placeholder="Project Name"  required (selectionChange)="selected($event)" formControlName="projectName">
                             <mat-option *ngFor="let option of response.projects" [value]="option">
                                 {{option.name}}
                             </mat-option>
@@ -37,7 +37,7 @@
 
                 <div class="col-sm-12">
                     <mat-form-field class="full-width">
-                        <mat-select placeholder="Ticket Cause"  formControlName="ticketCause">
+                        <mat-select placeholder="Ticket Cause" required  formControlName="ticketCause">
                             <mat-option *ngFor="let option of ticketCauses" [value]="option">
                                 {{option}}
                             </mat-option>
@@ -63,7 +63,7 @@
 
                 <div class="col-sm-12">
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Execution Url" nullValue formControlName="executionUrl">
+                        <input matInput placeholder="Execution Url" nullValue  required formControlName="executionUrl">
 
                         <mat-error *ngIf="submitTicketForm.get('executionUrl').invalid">
                             <!-- <input-error class="mat-error" [input]="submitTicketForm.get('executionUrl')">

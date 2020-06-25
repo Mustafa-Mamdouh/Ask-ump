@@ -1,5 +1,5 @@
 {
-    "/*": {
+    "/rest/api": {
         "target": "https://ask-ump.atlassian.net",
         "secure": false,
         "logLevel": "debug",
