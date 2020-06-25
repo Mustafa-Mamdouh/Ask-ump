@@ -1,0 +1,82 @@
+<div class="main-page">
+    <div class="mat-elevation-z8 card-wrapper">
+
+        <div class="loading-shade" *ngIf="submitting">
+            <mat-spinner *ngIf="submitting"></mat-spinner>
+        </div>
+
+        <h2 class="text-muted text-center">Submit Ticket</h2>
+        <form autocomplete="off" name="submitTicketForm" [formGroup]="submitTicketForm">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="Project Name"  (selectionChange)="selected($event)" formControlName="projectName">
+                            <mat-option *ngFor="let option of response.projects" [value]="option">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="submitTicketForm.get('projectName').invalid">
+                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('ticketCause')">
+                            </input-error> -->
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Dataset Name" required nullValue formControlName="datasetName">
+
+                        <mat-error *ngIf="submitTicketForm.get('datasetName').invalid">
+                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('datasetName')">
+                            </input-error> -->
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-sm-12">
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="Ticket Cause"  formControlName="ticketCause">
+                            <mat-option *ngFor="let option of ticketCauses" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="submitTicketForm.get('ticketCause').invalid">
+                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('ticketCause')">
+                            </input-error> -->
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-12">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Description" nullValue required formControlName="description">
+
+                        <mat-error *ngIf="submitTicketForm.get('description').invalid">
+                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('description')">
+                            </input-error> -->
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-12">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Execution Url" nullValue formControlName="executionUrl">
+
+                        <mat-error *ngIf="submitTicketForm.get('executionUrl').invalid">
+                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('executionUrl')">
+                            </input-error> -->
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <button mat-raised-button [color]="'primary'" (click)="submitTicket()">Submit</button>
+
+        </form>
+
+    </div>
+</div>

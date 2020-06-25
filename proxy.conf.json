@@ -1,0 +1,9 @@
+{
+    "/*": {
+        "target": "https://ask-ump.atlassian.net",
+        "secure": false,
+        "logLevel": "debug",
+        "debug": true,
+        "changeOrigin": true
+    }
+}

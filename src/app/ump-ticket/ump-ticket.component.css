@@ -1,0 +1,29 @@
+.main-page{
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+.main-page h2{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.card-wrapper{
+    width: 500px;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.card-wrapper .mat-raised-button{
+    width: 100%;
+    margin-top: 20px;
+}
+.card-wrapper table{
+    margin-top: 50px;
+}
+
+.card-wrapper table tr td:nth-child(odd){
+    font-weight: bold;
+}

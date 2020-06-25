@@ -1,18 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MaterialModule } from './material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotificationBuilderService } from './notificationBuilder.service';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { JiraIntegrationService } from './services/JiraIntegration.service';
+import { Constants } from './constants';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { UmpTicketComponent } from './ump-ticket/ump-ticket.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UmpTicketComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule, MaterialModule, FormsModule, ReactiveFormsModule, ToastrModule.forRoot(), BrowserAnimationsModule, HttpClientModule
   ],
-  providers: [],
+  providers: [NotificationBuilderService, JiraIntegrationService, Constants],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
