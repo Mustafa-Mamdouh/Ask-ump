@@ -1,6 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormGroupDirective,
+} from '@angular/forms';
 import 'rxjs/add/observable/combineLatest';
 import { NotificationBuilderService } from '../notificationBuilder.service';
 import { containsElement } from '@angular/animations/browser/src/render/shared';
@@ -10,61 +15,44 @@ import { Constants } from '../constants';
 @Component({
   selector: 'app-ump-ticket',
   templateUrl: './ump-ticket.component.html',
-  styleUrls: ['./ump-ticket.component.css']
+  styleUrls: ['./ump-ticket.component.css'],
 })
 export class UmpTicketComponent implements OnInit {
   submitTicketForm: FormGroup = new FormGroup({});
-  ticketCauses = ["ACL Request", "Question", "Flow Failure"];
+  ticketCauses = ['ACL Request', 'Question', 'Flow Failure'];
   submitting = false;
-  response;
-  constructor(private fb: FormBuilder, private notify: NotificationBuilderService, private snackBar: MatSnackBar,
-    private jiraIntegrationService: JiraIntegrationService) {
+  response: any = { projects: [] };
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
+
+  constructor(
+    private fb: FormBuilder,
+    private notify: NotificationBuilderService,
+    private snackBar: MatSnackBar,
+    private jiraIntegrationService: JiraIntegrationService
+  ) {
     this.buildForm();
     jiraIntegrationService.getMetadata().subscribe(
-      response => {
+      (response) => {
         this.response = response;
         console.log(this.response);
       },
-      errorResponce => {
+      (errorResponce) => {
         this.notify.showError(errorResponce.statusText);
-        this.response={};
+        this.response = {};
       }
-
     );
   }
 
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
   buildForm(): void {
     this.submitTicketForm = this.fb.group({
-      projectName: [
-        null,
-        [
-          Validators.required],
-      ],
-      datasetName: [
-        null,
-        [
-          Validators.required],
-      ],
-      ticketCause: [
-        null,
-        [
-          Validators.required
-        ],
-      ],
-      description: [
-        null,
-        [
-          Validators.required
-        ],
-      ],
-      executionUrl: [null, [Validators.required]]
+      projectName: [null, [Validators.required]],
+      datasetName: [null, [Validators.required]],
+      ticketCause: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      executionUrl: [null, [Validators.required]],
     });
-
   }
   submitTicket() {
     if (this.submitting) {
@@ -79,44 +67,42 @@ export class UmpTicketComponent implements OnInit {
     let snackBarRef = this.snackBar.open('Loading ... ');
 
     let issueData = {
-      "fields": {
-        "project":
-        {
-          "key": this.submitTicketForm.value.projectName.key
+      fields: {
+        project: {
+          key: this.submitTicketForm.value.projectName.key,
         },
-        "summary": this.submitTicketForm.value.datasetName,
-        "description": this.submitTicketForm.value.description,
-        "issuetype": {
-          "name": "Task"
-        }
-      }
+        summary: this.submitTicketForm.value.datasetName,
+        description: this.submitTicketForm.value.description,
+        issuetype: {
+          name: 'Task',
+        },
+      },
     };
+
 
     console.log(JSON.stringify(issueData));
     this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
-      response => {
+      (response) => {
         snackBarRef.dismiss();
-        if (response.status == 200) {
-          this.notify.showSuccess("TicketAdded");
-        } else {
-          this.submitting = false;
-        }
+        this.notify.showSuccess('Ticket Added');
+        setTimeout(() => this.formGroupDirective.resetForm(), 0);
+        this.submitting = false;
       },
-      errorResponce => {
+      (errorResponce) => {
         console.log(errorResponce);
-        this.notify.showError(errorResponce.status + "  " + errorResponce.error);
+        this.notify.showError(
+          errorResponce.status + '  ' + errorResponce.error
+        );
         this.submitting = false;
         snackBarRef.dismiss();
       }
     );
-
   }
   selected(event) {
     let target = event.source.selected._element.nativeElement;
     let selectedData = {
       value: event.value,
-      text: target.innerText.trim()
+      text: target.innerText.trim(),
     };
   }
-
 }

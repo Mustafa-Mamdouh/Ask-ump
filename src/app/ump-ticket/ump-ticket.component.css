@@ -27,3 +27,7 @@
 .card-wrapper table tr td:nth-child(odd){
     font-weight: bold;
 }
+
+.full-width{
+    width: 100%;
+}

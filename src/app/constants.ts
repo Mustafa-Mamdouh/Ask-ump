@@ -1,8 +1,8 @@
 export class Constants {
-    jiraBaseUrl = 'https://ask-ump.atlassian.net'
+    jiraBaseUrl = '/rest/api/'
     public urls = {
-        getAllMetadata:this.jiraBaseUrl + '/rest/api/2/issue/createmeta',
-        postTicketUrl: this.jiraBaseUrl + '/rest/api/2/issue'
+        getAllMetadata:this.jiraBaseUrl + '2/issue/createmeta',
+        postTicketUrl: this.jiraBaseUrl + '2/issue'
     }
     public authenticationParameters={
         email:'mustafamamdouh78@gmail.com',

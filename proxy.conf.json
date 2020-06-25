@@ -1,9 +1,10 @@
 {
-    "/*": {
+    "/rest/api": {
         "target": "https://ask-ump.atlassian.net",
-        "secure": false,
+        "secure": true,
         "logLevel": "debug",
         "debug": true,
+        "headers": {"User-Agent":""},
         "changeOrigin": true
     }
 }
