@@ -24,6 +24,19 @@ export class UmpTicketComponent implements OnInit {
   response: any = { projects: [] };
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
 
+  questionTypeData = ['I want to know how to do XYZ in UMP', 'My flow failed and need help', 'Operations help (Delete data/ Pinot table etc)'
+    , 'Access related request', 'Other'];
+  envTypeData = ['Faro', 'Holdem', 'War'];
+  flowUseCaseTypeData = ['Backfill', 'Time properties related', 'Data quality related', 'UDP', 'Pinot Related',
+    'Test flow', 'Scheduled flow', 'Distcp', 'HP '];
+  failingStepData = ['Data file step', 'Pre/ post validation step', 'Trigger step', 'Prune dates step', 'Any other steps'];
+  affectionTypeData = ['This is affecting production data/ flow (HP) -> Reach out to DFSRE oncall',
+    'This is affecting production data/ flow (Non-HP)', 'This is affecting me',
+    'This is blocking my team (5+ people)', 'This is affecting my org (20+ people)'];
+  businessLineData = ['Data Science', 'BDE', 'LTI/ LSI', 'LTS', 'Fkagship', 'LMS', 'LLS', 'Other'];
+  searchHistoryData = ['Yes', 'No'];
+  documentationReadingHistoryData = ['Yes', 'No'];
+  isUmpChampData = ['Yes', 'No'];
   constructor(
     private fb: FormBuilder,
     private notify: NotificationBuilderService,
@@ -31,27 +44,32 @@ export class UmpTicketComponent implements OnInit {
     private jiraIntegrationService: JiraIntegrationService
   ) {
     this.buildForm();
-    jiraIntegrationService.getMetadata().subscribe(
-      (response) => {
-        this.response = response;
-        console.log(this.response);
-      },
-      (errorResponce) => {
-        this.notify.showError(errorResponce.statusText);
-        this.response = {};
-      }
-    );
+    // jiraIntegrationService.getMetadata().subscribe(
+    //   (response) => {
+    //     this.response = response;
+    //     console.log(this.response);
+    //   },
+    //   (errorResponce) => {
+    //     this.notify.showError(errorResponce.statusText);
+    //     this.response = {};
+    //   }
+    // );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   buildForm(): void {
     this.submitTicketForm = this.fb.group({
-      projectName: [null, [Validators.required]],
-      datasetName: [null, [Validators.required]],
-      ticketCause: [null, [Validators.required]],
-      description: [null, [Validators.required]],
+      questionType: [null, [Validators.required]],
+      envType: [null, [Validators.required]],
+      flowUseCaseType: [null, [Validators.required]],
+      failingStep: [null, [Validators.required]],
+      affectionType: [null, [Validators.required]],
+      businessLine: [null, [Validators.required]],
       executionUrl: [null, [Validators.required]],
+      searchHistory: [null, [Validators.required]],
+      documentationReadingHistory: [null, [Validators.required]],
+      isUmpChamp: [null, [Validators.required]]
     });
   }
   submitTicket() {
@@ -69,8 +87,13 @@ export class UmpTicketComponent implements OnInit {
     let issueData = {
       fields: {
         project: {
-          key: this.submitTicketForm.value.projectName.key,
+          key: 'APA',
         },
+        components: [
+          {
+            id: "37739"
+          }
+        ],
         summary: this.submitTicketForm.value.datasetName,
         description: this.submitTicketForm.value.description,
         issuetype: {
@@ -84,7 +107,7 @@ export class UmpTicketComponent implements OnInit {
     this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
       (response) => {
         snackBarRef.dismiss();
-        this.notify.showSuccess('Ticket Added tikcet key : '+ response.key);
+        this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
       },

@@ -11,51 +11,107 @@
 
                 <div class="col-sm-12">
                     <mat-form-field class="full-width">
-                        <mat-select placeholder="Project Name"  required (selectionChange)="selected($event)" formControlName="projectName">
-                            <mat-option *ngFor="let option of response.projects" [value]="option">
-                                {{option.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="">
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Dataset Name" required nullValue formControlName="datasetName">
-
-                        <mat-error *ngIf="submitTicketForm.get('datasetName').invalid">
-                            <!-- <input-error class="mat-error" [input]="submitTicketForm.get('datasetName')">
-                            </input-error> -->
-                        </mat-error>
-
-                    </mat-form-field>
-                </div>
-
-
-                <div class="col-sm-12">
-                    <mat-form-field class="full-width">
-                        <mat-select placeholder="Ticket Cause" required  formControlName="ticketCause">
-                            <mat-option *ngFor="let option of ticketCauses" [value]="option">
+                        <mat-select placeholder="Identify your question type" formControlName="questionType">
+                            <mat-option *ngFor="let option of questionTypeData" [value]="option">
                                 {{option}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
 
-                <div class="col-sm-12">
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Description" nullValue required formControlName="description">
-
-
-                    </mat-form-field>
-                </div>
 
                 <div class="col-sm-12">
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Execution Url" nullValue  required formControlName="executionUrl">
-
-
+                        <mat-select placeholder="Production or Development? (Provide cluster related information)"
+                            formControlName="envType">
+                            <mat-option *ngFor="let option of envTypeData " [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
+
+
+                <div class="col-sm-12">
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="Identify the type of your flow/ use case (Multiple choices)" multiple
+                            formControlName="flowUseCaseType">
+                            <mat-option *ngFor="let option of flowUseCaseTypeData" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Execution Url" nullValue required formControlName="executionUrl">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-12">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Which of the following steps is failing?" formControlName="failingStep">
+                        <mat-option *ngFor="let option of failingStepData" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="1 Choose One:" formControlName="affectionType">
+                        <mat-option *ngFor="let option of affectionTypeData" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Choose the Line of Business" formControlName="businessLine">
+                        <mat-option *ngFor="let option of businessLineData" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Have you tried searching for old UMP tickets?"
+                        formControlName="searchHistory">
+                        <mat-option *ngFor="let option of searchHistoryData" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-sm-12">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Have you read UMP documents?"
+                        formControlName="documentationReadingHistory">
+                        <mat-option *ngFor="let option of documentationReadingHistoryData" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+            <div class="col-sm-12">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Are you a UMP Champion?" formControlName="isUmpChamp">
+                        <mat-option *ngFor="let option of isUmpChampData" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-12">
+
 
             </div>
             <button mat-raised-button [color]="'primary'" (click)="submitTicket()">Submit</button>
