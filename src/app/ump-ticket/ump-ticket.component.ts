@@ -69,7 +69,9 @@ export class UmpTicketComponent implements OnInit {
       executionUrl: [null, [Validators.required]],
       searchHistory: [null, [Validators.required]],
       documentationReadingHistory: [null, [Validators.required]],
-      isUmpChamp: [null, [Validators.required]]
+      isUmpChamp: [null, [Validators.required]],
+      summary: [null, [Validators.required]],
+      datasetName: [null, [Validators.required]]
     });
   }
   submitTicket() {
@@ -83,7 +85,17 @@ export class UmpTicketComponent implements OnInit {
     }
     this.submitting = true;
     let snackBarRef = this.snackBar.open('Loading ... ');
-
+    let desc='dataset name:' + this.submitTicketForm.value.datasetName+'\n'
+    + 'Question Type'+this.submitTicketForm.value.questionType+ '\n'
+    + 'Environment'+this.submitTicketForm.value.envType+ '\n'
+    + 'flow/usecase type'+this.submitTicketForm.value.flowUseCaseType+ '\n'
+    + 'Execution Link'+this.submitTicketForm.value.executionUrl+ '\n'
+    + 'Failing step'+this.submitTicketForm.value.failingStep+ '\n'
+    + 'Priority'+this.submitTicketForm.value.affectionType+ '\n'
+    + 'Line of Business'+this.submitTicketForm.value.businessLine+ '\n'
+    + 'Have you tried searching for old UMP tickets?'+this.submitTicketForm.value.searchHistory+ '\n'
+    + 'Have you read UMP documents?'+this.submitTicketForm.value.documentationReadingHistory+ '\n'
+    + 'Are you a UMP Champion?'+this.submitTicketForm.value.isUmpChamp+ '\n';
     let issueData = {
       fields: {
         project: {
@@ -94,8 +106,8 @@ export class UmpTicketComponent implements OnInit {
             id: "37739"
           }
         ],
-        summary: this.submitTicketForm.value.datasetName,
-        description: this.submitTicketForm.value.description,
+        summary: this.submitTicketForm.value.summary,
+        description: desc,
         issuetype: {
           name: 'Bug',
         },
@@ -104,22 +116,22 @@ export class UmpTicketComponent implements OnInit {
 
 
     console.log(JSON.stringify(issueData));
-    this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
-      (response) => {
-        snackBarRef.dismiss();
-        this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
-        setTimeout(() => this.formGroupDirective.resetForm(), 0);
-        this.submitting = false;
-      },
-      (errorResponce) => {
-        console.log(errorResponce);
-        this.notify.showError(
-          errorResponce.status + '  ' + errorResponce.error
-        );
-        this.submitting = false;
-        snackBarRef.dismiss();
-      }
-    );
+    // this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
+    //   (response) => {
+    //     snackBarRef.dismiss();
+    //     this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
+    //     setTimeout(() => this.formGroupDirective.resetForm(), 0);
+    //     this.submitting = false;
+    //   },
+    //   (errorResponce) => {
+    //     console.log(errorResponce);
+    //     this.notify.showError(
+    //       errorResponce.status + '  ' + errorResponce.error
+    //     );
+    //     this.submitting = false;
+    //     snackBarRef.dismiss();
+    //   }
+    // );
   }
   selected(event) {
     let target = event.source.selected._element.nativeElement;
