@@ -67,6 +67,7 @@ export class UmpTicketComponent implements OnInit {
       affectionType: [null, [Validators.required]],
       businessLine: [null, [Validators.required]],
       executionUrl: [null, [Validators.required]],
+      datasetName: [null, [Validators.required]],
       searchHistory: [null, [Validators.required]],
       documentationReadingHistory: [null, [Validators.required]],
       isUmpChamp: [null, [Validators.required]]

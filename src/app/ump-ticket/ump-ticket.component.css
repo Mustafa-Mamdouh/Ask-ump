@@ -1,19 +1,42 @@
 .main-page{
-	display: flex;
-	flex-direction: row;
-	height: 100%;
-	align-items: center;
-	justify-content: center;
+	/* display: flex; */
+    /* flex-direction: row; */
+    /* align-items: center;
+	justify-content: center; */
+	/* height: 100%; */
+    padding: 30px;
+    background-color: #3f51b5;
+    position: relative;
+    overflow: hidden;
 }
+
+
+.top-circle{
+    position: absolute;
+    top: -500px;
+    left: -500px;
+    z-index: 1 ;
+    border-radius: 50%;
+    width: 1000px;
+    height: 1000px;
+    background-color: #fff;
+    
+}
+
 .main-page h2{
     font-weight: bold;
     margin-bottom: 20px;
 }
 
 .card-wrapper{
-    width: 500px;
+    /* width: 80%; */
+    /* min-width: 500px; */
+    margin: auto;
+    z-index: 10;
+    position: relative;
     padding: 15px;
     border-radius: 20px;
+    background-color: #fff;
 }
 
 .card-wrapper .mat-raised-button{
