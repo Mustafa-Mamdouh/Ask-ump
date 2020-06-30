@@ -74,7 +74,7 @@ export class UmpTicketComponent implements OnInit {
         summary: this.submitTicketForm.value.datasetName,
         description: this.submitTicketForm.value.description,
         issuetype: {
-          name: 'Task',
+          name: 'Bug',
         },
       },
     };
@@ -84,7 +84,7 @@ export class UmpTicketComponent implements OnInit {
     this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
       (response) => {
         snackBarRef.dismiss();
-        this.notify.showSuccess('Ticket Added');
+        this.notify.showSuccess('Ticket Added tikcet key : '+ response.key);
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
       },

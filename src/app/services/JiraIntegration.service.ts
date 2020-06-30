@@ -11,10 +11,7 @@ export class JiraIntegrationService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(constants.authenticationParameters.email + ':' + constants.authenticationParameters.apiToken)}`,
-        'Cookie':'atlassian.xsrf.token=f3d66b33-74fb-4128-be15-4c2dba036700_3b3982270d28c762955507e7d412299437392353_lin',
-        'Origin':'http://localhost:4200/',
-        'X-Atlassian-Token':'no-check'
+        'Authorization': `Basic ${btoa(constants.authenticationParameters.email + ':' + constants.authenticationParameters.apiToken)}`
       })
     };
   }

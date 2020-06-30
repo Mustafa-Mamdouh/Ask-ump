@@ -1,7 +1,7 @@
 {
     "/rest/api": {
-        "target": "https://ask-ump.atlassian.net",
-        "secure": true,
+        "target": "https://jira01.corp.linkedin.com:8443",
+        "secure": false,
         "logLevel": "debug",
         "debug": true,
         "headers": {"User-Agent":""},
