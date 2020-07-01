@@ -72,7 +72,6 @@ export class UmpTicketComponent implements OnInit {
       documentationReadingHistory: [null, [Validators.required]],
       isUmpChamp: [null, [Validators.required]],
       summary: [null, [Validators.required]],
-      datasetName: [null, [Validators.required]]
     });
   }
   submitTicket() {
@@ -117,22 +116,22 @@ export class UmpTicketComponent implements OnInit {
 
 
     console.log(JSON.stringify(issueData));
-    // this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
-    //   (response) => {
-    //     snackBarRef.dismiss();
-    //     this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
-    //     setTimeout(() => this.formGroupDirective.resetForm(), 0);
-    //     this.submitting = false;
-    //   },
-    //   (errorResponce) => {
-    //     console.log(errorResponce);
-    //     this.notify.showError(
-    //       errorResponce.status + '  ' + errorResponce.error
-    //     );
-    //     this.submitting = false;
-    //     snackBarRef.dismiss();
-    //   }
-    // );
+    this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
+      (response) => {
+        snackBarRef.dismiss();
+        this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
+        setTimeout(() => this.formGroupDirective.resetForm(), 0);
+        this.submitting = false;
+      },
+      (errorResponce) => {
+        console.log(errorResponce);
+        this.notify.showError(
+          errorResponce.status + '  ' + errorResponce.error
+        );
+        this.submitting = false;
+        snackBarRef.dismiss();
+      }
+    );
   }
   selected(event) {
     let target = event.source.selected._element.nativeElement;
