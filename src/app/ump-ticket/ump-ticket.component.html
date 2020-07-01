@@ -10,12 +10,11 @@
 
         <h2 class="text-muted text-center">Submit Ticket</h2>
         <div class="row">
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <form autocomplete="off" name="submitTicketForm" [formGroup]="submitTicketForm">
                     <div class="row">
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Summary</mat-label>
                                 <input matInput placeholder="Summary" nullValue required
@@ -23,14 +22,14 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Dataset Name</mat-label>
                                 <input matInput placeholder="Dataset Name" nullValue required
                                     formControlName="datasetName">
                             </mat-form-field>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Question type</mat-label>
                                 <mat-select placeholder="Identify your question type" formControlName="questionType">
@@ -42,7 +41,7 @@
                         </div>
 
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                                 <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Production or Development</mat-label>
                                 <mat-select
@@ -56,7 +55,7 @@
                         </div>
 
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Flow Type</mat-label>
                                 <mat-select placeholder="Identify the type of your flow/ use case (Multiple choices)"
@@ -68,7 +67,7 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Execution Url</mat-label>
                                 <input matInput placeholder="Execution Url" nullValue required
@@ -77,7 +76,7 @@
                         </div>
 
                     
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Which of the following steps is failing?</mat-label>
                                 <mat-select placeholder="Which of the following steps is failing?"
@@ -89,7 +88,7 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Choose One?</mat-label>
                                 <mat-select placeholder="1 Choose One:" formControlName="affectionType">
@@ -100,7 +99,7 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Line of Business</mat-label>
                                 <mat-select placeholder="Choose the Line of Business" formControlName="businessLine">
@@ -111,7 +110,7 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Have you tried searching for old UMP tickets?</mat-label>
                                 <mat-select placeholder="Have you tried searching for old UMP tickets?"
@@ -124,7 +123,7 @@
                         </div>
 
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Have you read UMP documents?</mat-label>
                                 <mat-select placeholder="Have you read UMP documents?"
@@ -137,7 +136,7 @@
                         </div>
 
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Are you a UMP Champion?</mat-label>
                                 <mat-select placeholder="Are you a UMP Champion?" formControlName="isUmpChamp">
@@ -148,13 +147,10 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-sm-12">
-
-
-                        </div>
                     </div>
-                    <button mat-raised-button [color]="'primary'" (click)="submitTicket()">Submit</button>
 
+                        <button mat-raised-button [color]="'primary'" (click)="submitTicket()">Submit</button>
+    
                 </form>
 
             </div>
