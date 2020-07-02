@@ -98,3 +98,11 @@ body {
 .full-width {
   width: 100%;
 }
+
+.logout{
+  position: absolute;
+  left: 10px;
+  z-index: 200;
+  top: 10px;
+  color: #3f51b5;
+}

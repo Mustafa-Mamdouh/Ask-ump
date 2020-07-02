@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
 
-    if(this.loginService.isLoggedIn === true){
+    if(this.loginService.isAuthorized() === true){
       this.router.navigate(['/main']);
     }
 
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         loginFormData.apiToken ===
           this.constants.authenticationParameters.apiToken
       ) {
-        this.loginService.isLoggedIn = true;
+        this.loginService.setToken();
         this.router.navigate(['/main']);
       } else {
         this.notify.showError('Invalid Login Credentials');

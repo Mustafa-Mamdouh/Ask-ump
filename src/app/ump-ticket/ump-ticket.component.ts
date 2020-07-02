@@ -48,7 +48,7 @@ export class UmpTicketComponent implements OnInit {
     private jiraIntegrationService: JiraIntegrationService,
     private loginService: LoginService
   ) {
-    if(this.loginService.isLoggedIn === false ){
+    if(this.loginService.isAuthorized() === false ){
       this.router.navigate(['/']);
     }
 
@@ -63,6 +63,11 @@ export class UmpTicketComponent implements OnInit {
     //     this.response = {};
     //   }
     // );
+  }
+
+  logout(){
+    this.loginService.clearToken();
+    this.router.navigate(['/']);
   }
 
   ngOnInit(): void { }

@@ -2,6 +2,13 @@
 
 <div class="main-page">
 
+    <div class="logout">
+
+        <button mat-icon-button matTooltip="Logout" (click)="logout()">
+            <mat-icon>power_settings_new</mat-icon>
+        </button>
+    </div>
+    
     <div class="mat-elevation-z8 card-wrapper container">
 
         <div class="loading-shade" *ngIf="submitting">

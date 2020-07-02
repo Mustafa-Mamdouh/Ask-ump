@@ -6,11 +6,20 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class LoginService {
-  isLoggedIn = false;
-
   constructor(
     private http: HttpClient,
     private constants: Constants,
     private router: Router
   ) {}
+
+  setToken(){
+      localStorage.setItem('__T', this.constants.authenticationParameters.apiToken );
+  }
+
+  isAuthorized(){
+    return localStorage.getItem('__T') === this.constants.authenticationParameters.apiToken ;
+  }
+  clearToken(){
+    localStorage.removeItem('__T');
+  }
 }
