@@ -11,6 +11,9 @@ import { NotificationBuilderService } from '../notificationBuilder.service';
 import { containsElement } from '@angular/animations/browser/src/render/shared';
 import { JiraIntegrationService } from './../services/JiraIntegration.service';
 import { Constants } from '../constants';
+import { LoginService } from '../services/login.service';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ump-ticket',
@@ -41,8 +44,14 @@ export class UmpTicketComponent implements OnInit {
     private fb: FormBuilder,
     private notify: NotificationBuilderService,
     private snackBar: MatSnackBar,
-    private jiraIntegrationService: JiraIntegrationService
+    private router: Router,
+    private jiraIntegrationService: JiraIntegrationService,
+    private loginService: LoginService
   ) {
+    if(this.loginService.isLoggedIn === false ){
+      this.router.navigate(['/']);
+    }
+
     this.buildForm();
     // jiraIntegrationService.getMetadata().subscribe(
     //   (response) => {

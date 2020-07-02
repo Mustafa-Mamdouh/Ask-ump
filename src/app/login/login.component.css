@@ -10,7 +10,6 @@
 
 }
 
-
 h2{
   letter-spacing: 2px;
 }
@@ -33,7 +32,8 @@ h2{
 }
 
 .card-wrapper {
-  width: 80%;
+  max-width: 500px;
+  min-width: 400px;
   /* min-width: 500px; */
   z-index: 10;
   padding: 15px;
@@ -55,4 +55,8 @@ h2{
 
 .full-width {
   width: 100%;
+}
+
+.mat-form-field{
+  margin-top: 10px;
 }

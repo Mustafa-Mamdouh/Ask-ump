@@ -1,0 +1,42 @@
+<div class="top-circle"></div>
+
+<div class="main-page">
+
+    <div class="mat-elevation-z8 card-wrapper ">
+
+        <div class="loading-shade" *ngIf="submitting">
+            <mat-spinner *ngIf="submitting"></mat-spinner>
+        </div>
+
+        <h2 class="text-muted text-header text-center">LOGIN</h2>
+        <div class="row">
+            <div class="col-sm-12">
+                <form autocomplete="off" name="lgoinForm" [formGroup]="lgoinForm">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="Email" nullValue required formControlName="email">
+                                <mat-error>Required Field !</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>API Token</mat-label>
+                                <input matInput placeholder="API Token" nullValue  required
+                                    formControlName="apiToken">
+                                <mat-error>Required Field !</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button mat-raised-button [color]="'primary'" (click)="login()">Submit</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
