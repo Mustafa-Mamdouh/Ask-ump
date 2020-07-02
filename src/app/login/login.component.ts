@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
         this.loginService.isLoggedIn = true;
         this.router.navigate(['/main']);
       } else {
-        this.notify.showError('Invalid Login Credintial');
+        this.notify.showError('Invalid Login Credentials');
       }
 
       this.submitting = false;
