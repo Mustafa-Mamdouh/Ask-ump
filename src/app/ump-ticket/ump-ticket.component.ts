@@ -40,6 +40,27 @@ export class UmpTicketComponent implements OnInit {
   searchHistoryData = ['Yes', 'No'];
   documentationReadingHistoryData = ['Yes', 'No'];
   isUmpChampData = ['Yes', 'No'];
+
+
+  // Files 
+
+
+  selectedFiles: any = [];
+  @ViewChild('file') file;
+
+
+  updateFiles() {
+    this.selectedFiles = [];
+
+    for (var i = 0; i < this.file.nativeElement.files.length; i++) {
+      this.selectedFiles.push(this.file.nativeElement.files[i]);
+    }
+  }
+
+  removeFile(index) {
+    this.selectedFiles.splice(index, 1);
+  }
+
   constructor(
     private fb: FormBuilder,
     private notify: NotificationBuilderService,
@@ -79,6 +100,7 @@ export class UmpTicketComponent implements OnInit {
       flowUseCaseType: [null, [Validators.required]],
       failingStep: [null, [Validators.required]],
       affectionType: [null, [Validators.required]],
+      description: [null, [Validators.required]],
       businessLine: [null, [Validators.required]],
       executionUrl: [null, [Validators.required]],
       datasetName: [null, [Validators.required]],
@@ -99,17 +121,18 @@ export class UmpTicketComponent implements OnInit {
     }
     this.submitting = true;
     let snackBarRef = this.snackBar.open('Loading ... ');
-    let desc='dataset name:' + this.submitTicketForm.value.datasetName+'\n'
-    + 'Question Type'+this.submitTicketForm.value.questionType+ '\n'
-    + 'Environment'+this.submitTicketForm.value.envType+ '\n'
-    + 'flow/usecase type'+this.submitTicketForm.value.flowUseCaseType+ '\n'
-    + 'Execution Link'+this.submitTicketForm.value.executionUrl+ '\n'
-    + 'Failing step'+this.submitTicketForm.value.failingStep+ '\n'
-    + 'Priority'+this.submitTicketForm.value.affectionType+ '\n'
-    + 'Line of Business'+this.submitTicketForm.value.businessLine+ '\n'
-    + 'Have you tried searching for old UMP tickets?'+this.submitTicketForm.value.searchHistory+ '\n'
-    + 'Have you read UMP documents?'+this.submitTicketForm.value.documentationReadingHistory+ '\n'
-    + 'Are you a UMP Champion?'+this.submitTicketForm.value.isUmpChamp+ '\n';
+    let desc='dataset name : ' + this.submitTicketForm.value.datasetName+' \n'
+    + 'Question Type : '+this.submitTicketForm.value.questionType+ ' \n'
+    + 'Environment : '+this.submitTicketForm.value.envType+ ' \n'
+    + 'flow/usecase type : '+this.submitTicketForm.value.flowUseCaseType+ ' \n'
+    + 'Execution Link : <a href="'+this.submitTicketForm.value.executionUrl+ '" >'+this.submitTicketForm.value.executionUrl+'</a> \n'
+    + 'Failing step : '+this.submitTicketForm.value.failingStep+ ' \n'
+    + 'Priority : '+this.submitTicketForm.value.affectionType+ ' \n'
+    + 'Line of Business : '+this.submitTicketForm.value.businessLine+ ' \n'
+    + 'Have you tried searching for old UMP tickets ? '+this.submitTicketForm.value.searchHistory+ ' \n'
+    + 'Have you read UMP documents ? '+this.submitTicketForm.value.documentationReadingHistory+ ' \n'
+    + 'Are you a UMP Champion ? ' +this.submitTicketForm.value.isUmpChamp+ ' \n';
+    + 'Description : ' +this.submitTicketForm.value.description+ ' \n';
     let issueData = {
       fields: {
         project: {
@@ -153,5 +176,17 @@ export class UmpTicketComponent implements OnInit {
       value: event.value,
       text: target.innerText.trim(),
     };
+  }
+
+  uploadFiles(){
+    console.log(this.selectedFiles);
+
+    let formData: FormData = new FormData();
+
+    this.selectedFiles.forEach(file => {
+      formData.append('uploadedFile', file);
+    });
+
+    console.log(formData);
   }
 }

@@ -3,3 +3,12 @@
 .card-wrapper {
   width: 80%;
 }
+
+.mat-chip{
+	margin-bottom: 5px;
+}
+
+.blue {
+	background: rgb(48, 165, 255);
+    color: #fff;
+}

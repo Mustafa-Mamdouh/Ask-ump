@@ -37,6 +37,7 @@
                                 <mat-error>Required Field !</mat-error>
                             </mat-form-field>
                         </div>
+
                         <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
                                 <mat-label>Question type</mat-label>
@@ -164,6 +165,39 @@
                                 <mat-error>Required Field !</mat-error>
                             </mat-form-field>
                         </div>
+
+                        <div class="col-sm-12">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput placeholder="Description" nullValue required
+                                    formControlName="description"></textarea>
+                                <mat-error>Required Field !</mat-error>
+                            </mat-form-field>
+                        </div>
+
+
+
+                        <div class="col-sm-12" >
+
+							<p class="text-center">Attachments</p>
+                            <input type="file" class="hidden" (change)="updateFiles()" placeholder="Select File"  #file multiple /> 
+
+                            <p class="text-center"> 
+                                <button mat-fab class="blue"  type="button" (click)="file.click()">
+                                    <mat-icon >attach_file</mat-icon>
+                                </button>
+                            </p>
+                            <p class="text-center text-muted">Select files to upload</p>
+
+                            <p *ngIf="(selectedFiles.length > 0)">Selected Files : </p>
+                            <mat-chip-list>
+                                <mat-chip color="primary" *ngFor="let file of selectedFiles ; let i = index">{{file.name}}
+                                    <mat-icon class="mat-chip-remove mat-chip-trailing-icon mat-icon material-icons mat-icon-no-color ng-star-inserted" 
+                                    (click)="removeFile(i)" matchipremove="" role="img" aria-hidden="true">cancel</mat-icon>
+                                </mat-chip>
+                            </mat-chip-list>
+                        
+                    </div>
 
                     </div>
 
