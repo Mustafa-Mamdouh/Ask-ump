@@ -10,16 +10,38 @@ export class LoginService {
     private http: HttpClient,
     private constants: Constants,
     private router: Router
-  ) {}
+  ) { }
 
-  setToken(){
-      localStorage.setItem('__T', this.constants.authenticationParameters.apiToken );
+  isAuthorized(token) :Boolean{
+    if (token == null) {
+      token = localStorage.getItem('__T');
+    }
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': token
+      })
+    };
+
+    this.http.get(this.constants.urls.getAllMetadata, httpOptions).subscribe((response) => {
+      setToken(token);
+      return true;
+    },
+      (errorResponse) => {
+        return false;
+      });
   }
 
-  isAuthorized(){
-    return localStorage.getItem('__T') === this.constants.authenticationParameters.apiToken ;
+
+  isAuthorizedUser(userName, password) :Boolean{
+    return this.isAuthorized(`Basic ${btoa(userName + ':' + password)}`);
   }
-  clearToken(){
+  setToken(token) {
+    localStorage.setItem('__T', token);
+  }
+
+
+  clearToken() {
     localStorage.removeItem('__T');
   }
 }

@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
 
-    if(this.loginService.isAuthorized() === true){
+    if (this.loginService.isAuthorized(null) === true) {
       this.router.navigate(['/main']);
     }
 
     this.buildForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   buildForm(): void {
     this.lgoinForm = this.fb.group({
@@ -59,13 +59,10 @@ export class LoginComponent implements OnInit {
     this.submitting = true;
 
     let loginFormData = this.lgoinForm.value;
+
     setTimeout(() => {
       if (
-        loginFormData.email === this.constants.authenticationParameters.email &&
-        loginFormData.apiToken ===
-          this.constants.authenticationParameters.apiToken
-      ) {
-        this.loginService.setToken();
+        this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken)) {
         this.router.navigate(['/main']);
       } else {
         this.notify.showError('Invalid Login Credentials');
