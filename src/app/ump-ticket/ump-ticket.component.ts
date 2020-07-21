@@ -180,12 +180,14 @@ export class UmpTicketComponent implements OnInit {
   }
 
   uploadAttachments(issueKey) {
-    const formData: FormData = new FormData();
-    this.selectedFiles.forEach(file => {
-      formData.append('file', file);
-    });
-    this.jiraIntegrationService.uploadAttachment(formData, issueKey).subscribe((response) => {
-      this.notify.showSuccess('Attachment added! ');
-    }, (errorResponse) => { this.notify.showError('Failed to add attachments'); });
+    if (this.selectedFiles.length > 0) {
+      const formData: FormData = new FormData();
+      this.selectedFiles.forEach(file => {
+        formData.append('file', file);
+      });
+      this.jiraIntegrationService.uploadAttachment(formData, issueKey).subscribe((response) => {
+        this.notify.showSuccess('Attachment added! ');
+      }, (errorResponse) => { this.notify.showError('Failed to add attachments'); });
+    }
   }
 }
