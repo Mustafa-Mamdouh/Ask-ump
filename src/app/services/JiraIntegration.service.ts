@@ -16,8 +16,8 @@ export class JiraIntegrationService {
     };
     this.httpOptionFormData = {
       headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Basic ${btoa(constants.authenticationParameters.email + ':' + constants.authenticationParameters.apiToken)}`
+        'Authorization': `Basic ${btoa(constants.authenticationParameters.email + ':' + constants.authenticationParameters.apiToken)}`,
+        'X-Atlassian-Token': 'nocheck'
       })
     };
   }

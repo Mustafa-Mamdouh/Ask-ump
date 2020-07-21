@@ -180,16 +180,12 @@ export class UmpTicketComponent implements OnInit {
   }
 
   uploadAttachments(issueKey) {
-    console.log(this.selectedFiles);
-
     const formData: FormData = new FormData();
-
     this.selectedFiles.forEach(file => {
       formData.append('file', file);
     });
     this.jiraIntegrationService.uploadAttachment(formData, issueKey).subscribe((response) => {
       this.notify.showSuccess('Attachment added! ');
     }, (errorResponse) => { this.notify.showError('Failed to add attachments'); });
-    console.log(formData);
   }
 }
