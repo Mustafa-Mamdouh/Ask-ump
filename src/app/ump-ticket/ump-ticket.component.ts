@@ -157,9 +157,7 @@ export class UmpTicketComponent implements OnInit {
       (response) => {
         snackBarRef.dismiss();
         this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
-        this.jiraIntegrationService.uploadAttachment(this.getFormData(), response.key).subscribe((response) => { 
-          this.notify.showSuccess('Attachment added! ');
-        }, (errorResponse) => {        this.notify.showError('Failed to add attachments');        });
+        this.uploadAttachments(response.key);
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
       },
@@ -181,15 +179,17 @@ export class UmpTicketComponent implements OnInit {
     };
   }
 
-  getFormData(): FormData {
+  uploadAttachments(issueKey) {
     console.log(this.selectedFiles);
 
-    let formData: FormData = new FormData();
+    const formData: FormData = new FormData();
 
     this.selectedFiles.forEach(file => {
       formData.append('file', file);
     });
+    this.jiraIntegrationService.uploadAttachment(formData, issueKey).subscribe((response) => {
+      this.notify.showSuccess('Attachment added! ');
+    }, (errorResponse) => { this.notify.showError('Failed to add attachments'); });
     console.log(formData);
-    return formData;
   }
 }
