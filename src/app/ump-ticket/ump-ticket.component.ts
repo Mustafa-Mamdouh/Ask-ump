@@ -69,7 +69,7 @@ export class UmpTicketComponent implements OnInit {
     private jiraIntegrationService: JiraIntegrationService,
     private loginService: LoginService
   ) {
-    if(this.loginService.isAuthorized() === false ){
+    if (this.loginService.isAuthorized() === false) {
       this.router.navigate(['/']);
     }
 
@@ -86,7 +86,7 @@ export class UmpTicketComponent implements OnInit {
     // );
   }
 
-  logout(){
+  logout() {
     this.loginService.clearToken();
     this.router.navigate(['/']);
   }
@@ -121,18 +121,18 @@ export class UmpTicketComponent implements OnInit {
     }
     this.submitting = true;
     let snackBarRef = this.snackBar.open('Loading ... ');
-    let desc='dataset name : ' + this.submitTicketForm.value.datasetName+' \n'
-    + 'Question Type : '+this.submitTicketForm.value.questionType+ ' \n'
-    + 'Environment : '+this.submitTicketForm.value.envType+ ' \n'
-    + 'flow/usecase type : '+this.submitTicketForm.value.flowUseCaseType+ ' \n'
-    + 'Execution Link : <a href="'+this.submitTicketForm.value.executionUrl+ '" >'+this.submitTicketForm.value.executionUrl+'</a> \n'
-    + 'Failing step : '+this.submitTicketForm.value.failingStep+ ' \n'
-    + 'Priority : '+this.submitTicketForm.value.affectionType+ ' \n'
-    + 'Line of Business : '+this.submitTicketForm.value.businessLine+ ' \n'
-    + 'Have you tried searching for old UMP tickets ? '+this.submitTicketForm.value.searchHistory+ ' \n'
-    + 'Have you read UMP documents ? '+this.submitTicketForm.value.documentationReadingHistory+ ' \n'
-    + 'Are you a UMP Champion ? ' +this.submitTicketForm.value.isUmpChamp+ ' \n';
-    + 'Description : ' +this.submitTicketForm.value.description+ ' \n';
+    let desc = 'dataset name : ' + this.submitTicketForm.value.datasetName + ' \n'
+      + 'Question Type : ' + this.submitTicketForm.value.questionType + ' \n'
+      + 'Environment : ' + this.submitTicketForm.value.envType + ' \n'
+      + 'flow/usecase type : ' + this.submitTicketForm.value.flowUseCaseType + ' \n'
+      + 'Execution Link : <a href="' + this.submitTicketForm.value.executionUrl + '" >' + this.submitTicketForm.value.executionUrl + '</a> \n'
+      + 'Failing step : ' + this.submitTicketForm.value.failingStep + ' \n'
+      + 'Priority : ' + this.submitTicketForm.value.affectionType + ' \n'
+      + 'Line of Business : ' + this.submitTicketForm.value.businessLine + ' \n'
+      + 'Have you tried searching for old UMP tickets ? ' + this.submitTicketForm.value.searchHistory + ' \n'
+      + 'Have you read UMP documents ? ' + this.submitTicketForm.value.documentationReadingHistory + ' \n'
+      + 'Are you a UMP Champion ? ' + this.submitTicketForm.value.isUmpChamp + ' \n'
+      + 'Description : ' + this.submitTicketForm.value.description + ' \n';
     let issueData = {
       fields: {
         project: {
@@ -157,6 +157,9 @@ export class UmpTicketComponent implements OnInit {
       (response) => {
         snackBarRef.dismiss();
         this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
+        this.jiraIntegrationService.uploadAttachment(this.getFormData(), response.key).subscribe((response) => { 
+          this.notify.showSuccess('Attachment added! ');
+        }, (errorResponse) => {        this.notify.showError('Failed to add attachments');        });
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
       },
@@ -178,15 +181,15 @@ export class UmpTicketComponent implements OnInit {
     };
   }
 
-  uploadFiles(){
+  getFormData(): FormData {
     console.log(this.selectedFiles);
 
     let formData: FormData = new FormData();
 
     this.selectedFiles.forEach(file => {
-      formData.append('uploadedFile', file);
+      formData.append('file', file);
     });
-
     console.log(formData);
+    return formData;
   }
 }

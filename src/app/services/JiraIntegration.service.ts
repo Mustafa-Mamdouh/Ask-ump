@@ -6,11 +6,17 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class JiraIntegrationService {
   httpOptions;
-
+  httpOptionFormData;
   constructor(private http: HttpClient, private constants: Constants) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': `Basic ${btoa(constants.authenticationParameters.email + ':' + constants.authenticationParameters.apiToken)}`
+      })
+    };
+    this.httpOptionFormData = {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data',
         'Authorization': `Basic ${btoa(constants.authenticationParameters.email + ':' + constants.authenticationParameters.apiToken)}`
       })
     };
@@ -21,4 +27,9 @@ export class JiraIntegrationService {
   postTicket(ticket): Observable<any> {
     return this.http.post(this.constants.urls.postTicketUrl, ticket, this.httpOptions);
   }
+  uploadAttachment(formData,issueKey){
+    return this.http.post(this.constants.urls.uploadAttachment+'/'+issueKey+'/attachments', formData, this.httpOptionFormData);
+
+  }
+
 }
