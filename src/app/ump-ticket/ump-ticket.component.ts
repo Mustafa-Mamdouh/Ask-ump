@@ -69,12 +69,12 @@ export class UmpTicketComponent implements OnInit {
     private jiraIntegrationService: JiraIntegrationService,
     private loginService: LoginService
   ) {
-    this.loginService.isAuthorized(null).subscribe((response) => {
-      this.router.navigate(['/']);
+    
 
-    },
-      (errorResponse) => {
-      });
+    if( !this.loginService.hasToken() ){
+      this.router.navigate(['/']);
+    }
+    
 
     this.buildForm();
     // jiraIntegrationService.getMetadata().subscribe(

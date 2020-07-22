@@ -30,13 +30,10 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
 
-    this.loginService.isAuthorized(null).subscribe((response) => {
+    if( this.loginService.hasToken() ){
       this.router.navigate(['/main']);
-
-    },
-      (errorResponse) => {
-      });
-
+    }
+    
     this.buildForm();
   }
 
@@ -65,6 +62,7 @@ export class LoginComponent implements OnInit {
 
 
     this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe((response) => {
+      this.loginService.setToken(`Basic ${btoa(loginFormData.email + ':' + loginFormData.apiToken)}`);
       this.router.navigate(['/main']);
       this.submitting = false;
     },

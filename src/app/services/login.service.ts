@@ -26,6 +26,9 @@ export class LoginService {
     return this.http.get(this.constants.urls.getAllMetadata, httpOptions);
   }
 
+  hasToken(){
+    return localStorage.getItem('__T'); 
+  }
 
   isAuthorizedUser(userName, password): Observable<any> {
     return this.isAuthorized(`Basic ${btoa(userName + ':' + password)}`);
