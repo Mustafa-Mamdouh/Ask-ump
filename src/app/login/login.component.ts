@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     },
       (errorResponse) => {
       });
-    
+
     this.buildForm();
   }
 
@@ -63,18 +63,15 @@ export class LoginComponent implements OnInit {
 
     let loginFormData = this.lgoinForm.value;
 
-    setTimeout(() => {
-      
-        this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe((response) => {
-          this.router.navigate(['/main']);
-    
-        },
-          (errorResponse) => {
-            this.notify.showError('Invalid Login Credentials');
 
-          });
-      
+    this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe((response) => {
+      this.router.navigate(['/main']);
       this.submitting = false;
-    }, 100);
+    },
+      (errorResponse) => {
+        this.notify.showError('Invalid Login Credentials');
+        this.submitting = false;
+      });
+
   }
 }
