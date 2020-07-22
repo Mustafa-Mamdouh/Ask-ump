@@ -12,7 +12,7 @@ export class LoginService {
     private router: Router
   ) { }
 
-  isAuthorized(token) :Boolean{
+  isAuthorized(token):  Observable<any> {
     if (token == null) {
       token = localStorage.getItem('__T');
     }
@@ -23,17 +23,11 @@ export class LoginService {
       })
     };
 
-    this.http.get(this.constants.urls.getAllMetadata, httpOptions).subscribe((response) => {
-      setToken(token);
-      return true;
-    },
-      (errorResponse) => {
-        return false;
-      });
+    return this.http.get(this.constants.urls.getAllMetadata, httpOptions);
   }
 
 
-  isAuthorizedUser(userName, password) :Boolean{
+  isAuthorizedUser(userName, password): Observable<any> {
     return this.isAuthorized(`Basic ${btoa(userName + ':' + password)}`);
   }
   setToken(token) {

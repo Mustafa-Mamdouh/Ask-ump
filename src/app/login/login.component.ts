@@ -30,10 +30,13 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
 
-    if (this.loginService.isAuthorized(null) === true) {
+    this.loginService.isAuthorized(null).subscribe((response) => {
       this.router.navigate(['/main']);
-    }
 
+    },
+      (errorResponse) => {
+      });
+    
     this.buildForm();
   }
 
@@ -61,13 +64,16 @@ export class LoginComponent implements OnInit {
     let loginFormData = this.lgoinForm.value;
 
     setTimeout(() => {
-      if (
-        this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken)) {
-        this.router.navigate(['/main']);
-      } else {
-        this.notify.showError('Invalid Login Credentials');
-      }
+      
+        this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe((response) => {
+          this.router.navigate(['/main']);
+    
+        },
+          (errorResponse) => {
+            this.notify.showError('Invalid Login Credentials');
 
+          });
+      
       this.submitting = false;
     }, 100);
   }
