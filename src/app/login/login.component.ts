@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   lgoinForm: FormGroup;
   submitting = false;
+  token ;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -68,16 +69,21 @@ export class LoginComponent implements OnInit {
 
     let loginFormData = this.lgoinForm.value;
 
+    this.token = `Basic ${btoa(loginFormData.email + ':' + loginFormData.apiToken)}`; 
 
-    this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe((response) => {
-      this.loginService.setToken(`Basic ${btoa(loginFormData.email + ':' + loginFormData.apiToken)}`);
+    this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe(res => this.handleResponse(res), res=> this.handleResponse(res));
+
+  }
+
+
+  handleResponse( response ){
+    // console.log(response);
+    if(response.headers.get('X-Seraph-LoginReason') == 'OK'){
+      this.loginService.setToken(this.token);
       this.router.navigate(['/main']);
-      this.submitting = false;
-    },
-      (errorResponse) => {
-        this.notify.showError('Invalid Login Credentials');
-        this.submitting = false;
-      });
-
+    }else{
+      this.notify.showError('Invalid Login Credentials');
+    }
+    this.submitting = false;
   }
 }

@@ -17,6 +17,7 @@ export class LoginService {
       token = localStorage.getItem('__T');
     }
     let httpOptions = {
+      observe: 'response' as 'response' ,
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': token
