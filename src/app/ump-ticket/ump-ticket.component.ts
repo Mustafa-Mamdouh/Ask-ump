@@ -74,12 +74,12 @@ export class UmpTicketComponent implements OnInit {
     if (!this.loginService.hasToken()) {
       this.router.navigate(['/']);
     } else {
-      this.loginService.isAuthorized(this.loginService.hasToken()).subscribe((response) => {
-      },
-        (errorResponse) => {
-          this.router.navigate(['/']);
+      // this.loginService.isAuthorized(this.loginService.hasToken()).subscribe((response) => {
+      // },
+      //   (errorResponse) => {
+      //     this.router.navigate(['/']);
 
-        });
+      //   });
 
 
 

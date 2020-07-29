@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   lgoinForm: FormGroup;
   submitting = false;
-  token ;
+  token;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -31,18 +31,18 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
 
-    if( this.loginService.hasToken()){
-      
+    if (this.loginService.hasToken()) {
+
       this.loginService.isAuthorized(this.loginService.hasToken()).subscribe((response) => {
         this.loginService.setToken(this.loginService.hasToken());
         this.router.navigate(['/main']);
       },
         (errorResponse) => {
         });
-  
+
     }
-  
-    
+
+
     this.buildForm();
   }
 
@@ -69,19 +69,29 @@ export class LoginComponent implements OnInit {
 
     let loginFormData = this.lgoinForm.value;
 
-    this.token = `Basic ${btoa(loginFormData.email + ':' + loginFormData.apiToken)}`; 
+    this.token = `Basic ${btoa(loginFormData.email + ':' + loginFormData.apiToken)}`;
 
-    this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe(res => this.handleResponse(res), res=> this.handleResponse(res));
+    if (loginFormData.email == this.constants.authenticationParameters.email && loginFormData.apiToken == this.constants.authenticationParameters.apiToken) {
+
+      this.loginService.setToken(this.token);
+      this.router.navigate(['/main']);
+
+    } else {
+      this.notify.showError('Invalid Login Credentials');
+    }
+    this.submitting = false;
+
+    // this.loginService.isAuthorizedUser(loginFormData.email, loginFormData.apiToken).subscribe(res => this.handleResponse(res), res=> this.handleResponse(res));
 
   }
 
 
-  handleResponse( response ){
+  handleResponse(response) {
     // console.log(response);
-    if(response.headers.get('X-Seraph-LoginReason') == 'OK'){
+    if (response.headers.get('X-Seraph-LoginReason') == 'OK') {
       this.loginService.setToken(this.token);
       this.router.navigate(['/main']);
-    }else{
+    } else {
       this.notify.showError('Invalid Login Credentials');
     }
     this.submitting = false;
