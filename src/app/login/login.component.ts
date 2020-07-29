@@ -31,16 +31,16 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
 
-    if (this.loginService.hasToken()) {
+    // if (this.loginService.hasToken()) {
 
-      this.loginService.isAuthorized(this.loginService.hasToken()).subscribe((response) => {
-        this.loginService.setToken(this.loginService.hasToken());
-        this.router.navigate(['/main']);
-      },
-        (errorResponse) => {
-        });
+    //   this.loginService.isAuthorized(this.loginService.hasToken()).subscribe((response) => {
+    //     this.loginService.setToken(this.loginService.hasToken());
+    //     this.router.navigate(['/main']);
+    //   },
+    //     (errorResponse) => {
+    //     });
 
-    }
+    // }
 
 
     this.buildForm();
