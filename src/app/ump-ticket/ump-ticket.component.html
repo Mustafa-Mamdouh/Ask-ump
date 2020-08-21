@@ -104,7 +104,7 @@
 
                         <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Choose One?</mat-label>
+                                <mat-label>Is  your flow HP /ERAP ? </mat-label>
                                 <mat-select placeholder="1 Choose One:" formControlName="affectionType">
                                     <mat-option *ngFor="let option of affectionTypeData" [value]="option">
                                         {{option}}
@@ -139,13 +139,11 @@
                             </mat-form-field>
                         </div>
 
-
                         <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Have you read UMP documents?</mat-label>
-                                <mat-select placeholder="Have you read UMP documents?"
-                                    formControlName="documentationReadingHistory">
-                                    <mat-option *ngFor="let option of documentationReadingHistoryData" [value]="option">
+                                <mat-label>Are you a UMP Champion?</mat-label>
+                                <mat-select placeholder="Are you a UMP Champion?" formControlName="isUmpChamp">
+                                    <mat-option *ngFor="let option of isUmpChampData" [value]="option">
                                         {{option}}
                                     </mat-option>
                                 </mat-select>
@@ -153,12 +151,11 @@
                             </mat-form-field>
                         </div>
 
-
                         <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Are you a UMP Champion?</mat-label>
-                                <mat-select placeholder="Are you a UMP Champion?" formControlName="isUmpChamp">
-                                    <mat-option *ngFor="let option of isUmpChampData" [value]="option">
+                                <mat-label>Assign the ticket to the chosen champion?</mat-label>
+                                <mat-select placeholder="Assign the ticket to the chosen champion?" formControlName="assignChamp">
+                                    <mat-option *ngFor="let option of championsNames" [value]="option">
                                         {{option}}
                                     </mat-option>
                                 </mat-select>

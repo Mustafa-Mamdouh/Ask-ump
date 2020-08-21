@@ -33,13 +33,11 @@ export class UmpTicketComponent implements OnInit {
   flowUseCaseTypeData = ['Backfill', 'Time properties related', 'Data quality related', 'UDP', 'Pinot Related',
     'Test flow', 'Scheduled flow', 'Distcp', 'HP '];
   failingStepData = ['Data file step', 'Pre/ post validation step', 'Trigger step', 'Prune dates step', 'Any other steps'];
-  affectionTypeData = ['This is affecting production data/ flow (HP) -> Reach out to DFSRE oncall',
-    'This is affecting production data/ flow (Non-HP)', 'This is affecting me',
-    'This is blocking my team (5+ people)', 'This is affecting my org (20+ people)'];
+  affectionTypeData = ['Yes', 'No', 'I am not sure'];
   businessLineData = ['Data Science', 'BDE', 'LTI/ LSI', 'LTS', 'Fkagship', 'LMS', 'LLS', 'Other'];
   searchHistoryData = ['Yes', 'No'];
-  documentationReadingHistoryData = ['Yes', 'No'];
   isUmpChampData = ['Yes', 'No'];
+  championsNames = ['Feiran Ji', 'Soumasish Goswami', 'Jenny', 'shuoze wang', 'Aash Anand', 'Aditya Choudhary', 'Support Team'];
 
 
   // Files 
@@ -118,8 +116,8 @@ export class UmpTicketComponent implements OnInit {
       executionUrl: [null, [Validators.required]],
       datasetName: [null, [Validators.required]],
       searchHistory: [null, [Validators.required]],
-      documentationReadingHistory: [null, [Validators.required]],
       isUmpChamp: [null, [Validators.required]],
+      assignChamp: [null, [Validators.required]],
       summary: [null, [Validators.required]],
     });
   }
@@ -146,6 +144,12 @@ export class UmpTicketComponent implements OnInit {
       + 'Have you read UMP documents ? ' + this.submitTicketForm.value.documentationReadingHistory + ' \n'
       + 'Are you a UMP Champion ? ' + this.submitTicketForm.value.isUmpChamp + ' \n'
       + 'Description : ' + this.submitTicketForm.value.description + ' \n';
+      let labelsString='';
+      let assigne =null;
+      if(this.submitTicketForm.value.assignChamp!='Support Team'){
+        labelsString='ump-champion-assigned';
+        assigne=this.submitTicketForm.value.assignChamp;
+      }
     let issueData = {
       fields: {
         project: {
@@ -160,8 +164,13 @@ export class UmpTicketComponent implements OnInit {
         description: desc,
         issuetype: {
           name: 'Bug',
-        },
+        }, labels: [
+          labelsString
+        ]
       },
+      assignee: {
+        name: assigne
+      }
     };
 
 
