@@ -37,8 +37,8 @@ export class UmpTicketComponent implements OnInit {
   businessLineData = ['Data Science', 'BDE', 'LTI/ LSI', 'LTS', 'Fkagship', 'LMS', 'LLS', 'Other'];
   searchHistoryData = ['Yes', 'No'];
   isUmpChampData = ['Yes', 'No'];
-  championsNames = ['Feiran Ji', 'Soumasish Goswami', 'Jenny', 'shuoze wang', 'Aash Anand', 'Aditya Choudhary', 'Support Team'];
-
+  championsNames = [{name:'Feiran Ji',ldap:'feji'}, {name:'Soumasish Goswami',ldap:'sogoswam'}, {name:'Jenny',ldap:'hwu1'}, {name:'shuoze wang',ldap:'shuozwan'}, {name:'Aash Anand',ldap:'aanand'}, {name:'Aditya Choudhary',ldap:'adchoudh'}, {name:'UMP Support Team',ldap:null}];
+  
 
   // Files 
 
@@ -141,14 +141,13 @@ export class UmpTicketComponent implements OnInit {
       + 'Priority : ' + this.submitTicketForm.value.affectionType + ' \n'
       + 'Line of Business : ' + this.submitTicketForm.value.businessLine + ' \n'
       + 'Have you tried searching for old UMP tickets ? ' + this.submitTicketForm.value.searchHistory + ' \n'
-      + 'Have you read UMP documents ? ' + this.submitTicketForm.value.documentationReadingHistory + ' \n'
       + 'Are you a UMP Champion ? ' + this.submitTicketForm.value.isUmpChamp + ' \n'
       + 'Description : ' + this.submitTicketForm.value.description + ' \n';
       let labelsString='';
       let assigne =null;
-      if(this.submitTicketForm.value.assignChamp!='Support Team'){
+      if(this.submitTicketForm.value.assignChamp!='UMP Support Team'){
         labelsString='ump-champion-assigned';
-        assigne=this.submitTicketForm.value.assignChamp;
+        assigne=this.submitTicketForm.value.assignChamp.ldap;
       }
     let issueData = {
       fields: {
@@ -166,10 +165,10 @@ export class UmpTicketComponent implements OnInit {
           name: 'Bug',
         }, labels: [
           labelsString
-        ]
-      },
-      assignee: {
-        name: assigne
+        ],
+        assignee: {
+          name: assigne
+        }
       }
     };
 
