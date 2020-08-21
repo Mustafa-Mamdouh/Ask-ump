@@ -145,7 +145,7 @@ export class UmpTicketComponent implements OnInit {
       + 'Description : ' + this.submitTicketForm.value.description + ' \n';
       let labelsString='';
       let assigne =null;
-      if(this.submitTicketForm.value.assignChamp!='UMP Support Team'){
+      if(this.submitTicketForm.value.assignChamp.name!='UMP Support Team'){
         labelsString='ump-champion-assigned';
         assigne=this.submitTicketForm.value.assignChamp.ldap;
       }

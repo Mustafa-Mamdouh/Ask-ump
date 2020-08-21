@@ -7,7 +7,7 @@ export class Constants {
     }
     public authenticationParameters={
         email:'ayoussef',
-        apiToken:'TottiPirlo2121'
+        apiToken:'Totti111Pirlo'
     }
     public successMessages = { postTicketSuccess: 'Ticked Added' }
 }
