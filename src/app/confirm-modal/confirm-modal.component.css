@@ -1,0 +1,31 @@
+.dialog-container{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.dialog-container *{
+    position: relative;
+    z-index: 1;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+}
+
+.dialog-container .mat-dialog-title{
+
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.dialog-container:before{
+    position: absolute;
+    content: '';
+    top: -50px;
+    right: -50px;
+    z-index: 1;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: #3f51b5;
+  
+}

@@ -14,6 +14,7 @@ import { Constants } from '../constants';
 import { LoginService } from '../services/login.service';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-ump-ticket',
@@ -42,6 +43,7 @@ export class UmpTicketComponent implements OnInit {
 
   // Files 
 
+  issueData:any = {};
 
   selectedFiles: any = [];
   @ViewChild('file') file;
@@ -65,7 +67,8 @@ export class UmpTicketComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private jiraIntegrationService: JiraIntegrationService,
-    private loginService: LoginService
+    private loginService: LoginService, 
+    public dialog: MatDialog
   ) {
 
 
@@ -104,6 +107,32 @@ export class UmpTicketComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  openModal( target , data): void {
+     
+    let comp : any  ; 
+    switch (target) {
+      case "confirm":
+          comp =  ConfirmModalComponent
+        break;
+    }
+
+    let dialogRef = this.dialog.open(comp, {
+      width: "500px",
+      disableClose: true,
+      autoFocus: false,
+      data: data 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      console.log(result);
+      if (result == "CONFIRM") {
+        this.confirmTicket();
+      }
+    });
+  }
+
+
   buildForm(): void {
     this.submitTicketForm = this.fb.group({
       questionType: [null, [Validators.required]],
@@ -122,6 +151,7 @@ export class UmpTicketComponent implements OnInit {
     });
   }
   submitTicket() {
+
     if (this.submitting) {
       return;
     }
@@ -130,8 +160,7 @@ export class UmpTicketComponent implements OnInit {
       this.notify.showError('Invalid data');
       return;
     }
-    this.submitting = true;
-    let snackBarRef = this.snackBar.open('Loading ... ');
+
     let desc = 'dataset name : ' + this.submitTicketForm.value.datasetName + ' \n'
       + 'Question Type : ' + this.submitTicketForm.value.questionType + ' \n'
       + 'Environment : ' + this.submitTicketForm.value.envType + ' \n'
@@ -149,7 +178,7 @@ export class UmpTicketComponent implements OnInit {
         labelsString='ump-champion-assigned';
         assigne=this.submitTicketForm.value.assignChamp.ldap;
       }
-    let issueData = {
+      this.issueData = {
       fields: {
         project: {
           key: 'APA',
@@ -171,10 +200,18 @@ export class UmpTicketComponent implements OnInit {
         }
       }
     };
+    this.openModal("confirm", this.issueData);
 
+  }
 
-    console.log(JSON.stringify(issueData));
-    this.jiraIntegrationService.postTicket(JSON.stringify(issueData)).subscribe(
+  confirmTicket(){
+
+    this.submitting = true;
+    
+    let snackBarRef = this.snackBar.open('Loading ... ');
+
+    console.log(JSON.stringify(this.issueData));
+    this.jiraIntegrationService.postTicket(JSON.stringify(this.issueData)).subscribe(
       (response) => {
         snackBarRef.dismiss();
         this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
@@ -192,6 +229,8 @@ export class UmpTicketComponent implements OnInit {
       }
     );
   }
+
+
   selected(event) {
     let target = event.source.selected._element.nativeElement;
     let selectedData = {

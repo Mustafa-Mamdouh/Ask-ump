@@ -14,18 +14,33 @@ import { AppComponent } from './app.component';
 import { UmpTicketComponent } from './ump-ticket/ump-ticket.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './services/login.service';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UmpTicketComponent
+    UmpTicketComponent,
+    ConfirmModalComponent,
   ],
+  entryComponents: [ConfirmModalComponent ],
+
   imports: [
     BrowserModule,
-    AppRoutingModule, MaterialModule, FormsModule, ReactiveFormsModule, ToastrModule.forRoot(), BrowserAnimationsModule, HttpClientModule
+    AppRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    HttpClientModule,
   ],
-  providers: [NotificationBuilderService, JiraIntegrationService, Constants ,LoginService],
-  bootstrap: [AppComponent]
+  providers: [
+    NotificationBuilderService,
+    JiraIntegrationService,
+    Constants,
+    LoginService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

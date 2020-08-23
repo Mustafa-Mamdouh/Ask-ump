@@ -1,0 +1,18 @@
+<mat-progress-bar mode="indeterminate" *ngIf="submitting"></mat-progress-bar>
+
+<div class="dialog-container">
+
+  <h3 mat-dialog-title class="text-muted">
+  	Test Header
+  </h3>
+
+  <div mat-dialog-content class="text-muted">
+      <P>Would you like to confirm ... ?</P>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button class="bg-danger" [mat-dialog-close]="">Canecl</button>
+      <span class="fill-remaining-space"></span>
+
+    <button mat-raised-button  color="primary" (click)="confirm()" >Confrim</button>
+  </div>
+</div>

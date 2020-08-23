@@ -106,3 +106,29 @@ body {
   top: 10px;
   color: #3f51b5;
 }
+
+
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+
+.bg-danger{
+  background: #f9564c;
+    color: #fff;
+}
+.bg-success{
+  background: #1db11a;
+    color: #fff;
+}
+
+
+
+.mat-dialog-container{
+  padding: 0 !important;
+  position: relative;
+}
+.dialog-container{
+  padding: 24px;
+}
