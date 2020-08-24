@@ -218,6 +218,7 @@ export class UmpTicketComponent implements OnInit {
         this.uploadAttachments(response.key);
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
+        window.open('https://jira01.corp.linkedin.com:8443/browse/'+response.key,"blank");
       },
       (errorResponce) => {
         console.log(errorResponce);
