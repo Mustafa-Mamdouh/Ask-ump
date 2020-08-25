@@ -243,7 +243,7 @@ export class UmpTicketComponent implements OnInit {
 
   addwatcher(issueKey, watcher) {
 
-    if (watcher.length > 0)
+    if (watcher && watcher.length > 0)
       this.jiraIntegrationService.addWatcher('\"' + watcher + '\"', issueKey).subscribe((response) => {
         this.notify.showSuccess('Watcher added! ');
       }, (errorResponse) => { this.notify.showError('Failed to add watchers'); });
@@ -266,7 +266,7 @@ export class UmpTicketComponent implements OnInit {
       this.isHasChampDisabled=false;
     } else {
       this.isHasChampDisabled=true;
-      this.submitTicketForm.patchValue({assignChamp:this.championsNames[6]});
+      this.submitTicketForm.patchValue({assignChamp:this.championsNames[6.]});
 
     }
     console.log(this.isHasChampDisabled);
