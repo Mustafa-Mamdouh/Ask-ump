@@ -128,10 +128,10 @@
 
                         <div class="col-sm-6">
                             <mat-form-field appearance="outline" class="full-width">
-                                <mat-label>Have you tried searching for old UMP tickets?</mat-label>
-                                <mat-select placeholder="Have you tried searching for old UMP tickets?"
-                                    formControlName="searchHistory">
-                                    <mat-option *ngFor="let option of searchHistoryData" [value]="option">
+                                <mat-label>Do you have a UMP champion for your team ?</mat-label>
+                                <mat-select placeholder="Do you have a UMP champion for your team ?"
+                                    formControlName="hasChamp">
+                                    <mat-option *ngFor="let option of hasChampData" [value]="option">
                                         {{option}}
                                     </mat-option>
                                 </mat-select>

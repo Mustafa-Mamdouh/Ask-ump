@@ -36,7 +36,7 @@ export class UmpTicketComponent implements OnInit {
   failingStepData = ['Data file step', 'Pre/ post validation step', 'Trigger step', 'Prune dates step', 'Any other steps'];
   affectionTypeData = ['Yes', 'No', 'I am not sure'];
   businessLineData = ['Data Science', 'BDE', 'LTI/ LSI', 'LTS', 'Fkagship', 'LMS', 'LLS', 'Other'];
-  searchHistoryData = ['Yes', 'No'];
+  hasChampData = ['Yes', 'No'];
   isUmpChampData = ['Yes', 'No'];
   championsNames = [{ name: 'Feiran Ji', ldap: 'feji' }, { name: 'Soumasish Goswami', ldap: 'sogoswam' }, { name: 'Jenny', ldap: 'hwu1' }, { name: 'shuoze wang', ldap: 'shuozwan' }, { name: 'Aash Anand', ldap: 'aanand' }, { name: 'Aditya Choudhary', ldap: 'adchoudh' }, { name: 'UMP Support Team', ldap: null }];
 
@@ -144,7 +144,7 @@ export class UmpTicketComponent implements OnInit {
       businessLine: [null, [Validators.required]],
       executionUrl: [null, [Validators.required]],
       datasetName: [null, [Validators.required]],
-      searchHistory: [null, [Validators.required]],
+      hasChamp: [null, [Validators.required]],
       isUmpChamp: [null, [Validators.required]],
       assignChamp: [null, [Validators.required]],
       summary: [null, [Validators.required]],
@@ -169,7 +169,6 @@ export class UmpTicketComponent implements OnInit {
       + 'Failing step : ' + this.submitTicketForm.value.failingStep + ' \n'
       + 'Priority : ' + this.submitTicketForm.value.affectionType + ' \n'
       + 'Line of Business : ' + this.submitTicketForm.value.businessLine + ' \n'
-      + 'Have you tried searching for old UMP tickets ? ' + this.submitTicketForm.value.searchHistory + ' \n'
       + 'Are you a UMP Champion ? ' + this.submitTicketForm.value.isUmpChamp + ' \n'
       + 'Description : ' + this.submitTicketForm.value.description + ' \n';
     let labelsString = '';
@@ -210,9 +209,7 @@ export class UmpTicketComponent implements OnInit {
 
     let snackBarRef = this.snackBar.open('Loading ... ');
 
-    console.log(JSON.stringify(this.issueData));
-    console.log(JSON.stringify(watcher.split(',')));
-
+    
     this.jiraIntegrationService.postTicket(JSON.stringify(this.issueData)).subscribe(
       (response) => {
         snackBarRef.dismiss();
