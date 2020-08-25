@@ -15,6 +15,7 @@ import { LoginService } from '../services/login.service';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-ump-ticket',
@@ -40,7 +41,7 @@ export class UmpTicketComponent implements OnInit {
   isUmpChampData = ['Yes', 'No'];
   championsNames = [{ name: 'Feiran Ji', ldap: 'feji' }, { name: 'Soumasish Goswami', ldap: 'sogoswam' }, { name: 'Jenny', ldap: 'hwu1' }, { name: 'shuoze wang', ldap: 'shuozwan' }, { name: 'Aash Anand', ldap: 'aanand' }, { name: 'Aditya Choudhary', ldap: 'adchoudh' }, { name: 'UMP Support Team', ldap: null }];
 
-
+  isHasChampDisabled=true;
   // Files 
 
   issueData: any = {};
@@ -209,12 +210,12 @@ export class UmpTicketComponent implements OnInit {
 
     let snackBarRef = this.snackBar.open('Loading ... ');
 
-    
+
     this.jiraIntegrationService.postTicket(JSON.stringify(this.issueData)).subscribe(
       (response) => {
         snackBarRef.dismiss();
         this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
-        this.addwatcher(response.key,watcher);
+        this.addwatcher(response.key, watcher);
         this.uploadAttachments(response.key);
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
@@ -240,14 +241,14 @@ export class UmpTicketComponent implements OnInit {
     };
   }
 
-  addwatcher(issueKey,watcher) {
+  addwatcher(issueKey, watcher) {
 
     if (watcher.length > 0)
-    this.jiraIntegrationService.addWatcher('\"'+watcher+'\"', issueKey).subscribe((response) => {
-      this.notify.showSuccess('Watcher added! ');
-    }, (errorResponse) => { this.notify.showError('Failed to add watchers'); });
-    }
-  
+      this.jiraIntegrationService.addWatcher('\"' + watcher + '\"', issueKey).subscribe((response) => {
+        this.notify.showSuccess('Watcher added! ');
+      }, (errorResponse) => { this.notify.showError('Failed to add watchers'); });
+  }
+
   uploadAttachments(issueKey) {
     if (this.selectedFiles.length > 0) {
       const formData: FormData = new FormData();
@@ -258,5 +259,16 @@ export class UmpTicketComponent implements OnInit {
         this.notify.showSuccess('Attachment added! ');
       }, (errorResponse) => { this.notify.showError('Failed to add attachments'); });
     }
+  }
+  onHasChampChange(event) {
+    console.log(event);
+    if (event.value == "Yes") {
+      this.isHasChampDisabled=false;
+    } else {
+      this.isHasChampDisabled=true;
+      this.submitTicketForm.patchValue({assignChamp:this.championsNames[6]});
+
+    }
+    console.log(this.isHasChampDisabled);
   }
 }
