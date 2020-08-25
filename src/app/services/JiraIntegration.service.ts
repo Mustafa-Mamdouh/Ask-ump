@@ -32,7 +32,7 @@ export class JiraIntegrationService {
 
   }
   addWatcher(formData,issueKey){
-    return this.http.post(this.constants.urls.uploadAttachment+'/'+issueKey+'/watchers', formData, this.httpOptionFormData);
+    return this.http.post(this.constants.urls.uploadAttachment+'/'+issueKey+'/watchers', formData, this.httpOptions);
 
   }
 }

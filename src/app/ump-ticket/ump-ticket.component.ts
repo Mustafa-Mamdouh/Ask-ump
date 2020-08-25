@@ -217,9 +217,7 @@ export class UmpTicketComponent implements OnInit {
       (response) => {
         snackBarRef.dismiss();
         this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
-        if (watcher.length > 0)
-          this.jiraIntegrationService.addWatcher(JSON.stringify(watcher.split(',')), response.key);
-
+        this.addwatcher(response.key,watcher);
         this.uploadAttachments(response.key);
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
@@ -245,6 +243,14 @@ export class UmpTicketComponent implements OnInit {
     };
   }
 
+  addwatcher(issueKey,watcher) {
+
+    if (watcher.length > 0)
+    this.jiraIntegrationService.addWatcher('\"'+watcher+'\"', issueKey).subscribe((response) => {
+      this.notify.showSuccess('Watcher added! ');
+    }, (errorResponse) => { this.notify.showError('Failed to add watchers'); });
+    }
+  
   uploadAttachments(issueKey) {
     if (this.selectedFiles.length > 0) {
       const formData: FormData = new FormData();
