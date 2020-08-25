@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -8,8 +8,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ConfirmModalComponent implements OnInit {
   submitting = false;
-
-
+  watchers;
   constructor(
     public dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -17,10 +16,10 @@ export class ConfirmModalComponent implements OnInit {
     // console.log(data);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  confirm(){
-    this.dialogRef.close("CONFIRM");
+  confirm() {
+    this.dialogRef.close({ result: "CONFIRM", watcher: this.watchers });
 
   }
 }

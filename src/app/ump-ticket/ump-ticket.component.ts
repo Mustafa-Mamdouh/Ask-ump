@@ -38,12 +38,12 @@ export class UmpTicketComponent implements OnInit {
   businessLineData = ['Data Science', 'BDE', 'LTI/ LSI', 'LTS', 'Fkagship', 'LMS', 'LLS', 'Other'];
   searchHistoryData = ['Yes', 'No'];
   isUmpChampData = ['Yes', 'No'];
-  championsNames = [{name:'Feiran Ji',ldap:'feji'}, {name:'Soumasish Goswami',ldap:'sogoswam'}, {name:'Jenny',ldap:'hwu1'}, {name:'shuoze wang',ldap:'shuozwan'}, {name:'Aash Anand',ldap:'aanand'}, {name:'Aditya Choudhary',ldap:'adchoudh'}, {name:'UMP Support Team',ldap:null}];
-  
+  championsNames = [{ name: 'Feiran Ji', ldap: 'feji' }, { name: 'Soumasish Goswami', ldap: 'sogoswam' }, { name: 'Jenny', ldap: 'hwu1' }, { name: 'shuoze wang', ldap: 'shuozwan' }, { name: 'Aash Anand', ldap: 'aanand' }, { name: 'Aditya Choudhary', ldap: 'adchoudh' }, { name: 'UMP Support Team', ldap: null }];
+
 
   // Files 
 
-  issueData:any = {};
+  issueData: any = {};
 
   selectedFiles: any = [];
   @ViewChild('file') file;
@@ -67,7 +67,7 @@ export class UmpTicketComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private jiraIntegrationService: JiraIntegrationService,
-    private loginService: LoginService, 
+    private loginService: LoginService,
     public dialog: MatDialog
   ) {
 
@@ -107,12 +107,12 @@ export class UmpTicketComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  openModal( target , data): void {
-     
-    let comp : any  ; 
+  openModal(target, data): void {
+
+    let comp: any;
     switch (target) {
       case "confirm":
-          comp =  ConfirmModalComponent
+        comp = ConfirmModalComponent
         break;
     }
 
@@ -120,14 +120,14 @@ export class UmpTicketComponent implements OnInit {
       width: "500px",
       disableClose: true,
       autoFocus: false,
-      data: data 
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
       console.log(result);
-      if (result == "CONFIRM") {
-        this.confirmTicket();
+      if (result.result == "CONFIRM") {
+        this.confirmTicket(result.watcher);
       }
     });
   }
@@ -172,13 +172,13 @@ export class UmpTicketComponent implements OnInit {
       + 'Have you tried searching for old UMP tickets ? ' + this.submitTicketForm.value.searchHistory + ' \n'
       + 'Are you a UMP Champion ? ' + this.submitTicketForm.value.isUmpChamp + ' \n'
       + 'Description : ' + this.submitTicketForm.value.description + ' \n';
-      let labelsString='';
-      let assigne =null;
-      if(this.submitTicketForm.value.assignChamp.name!='UMP Support Team'){
-        labelsString='ump-champion-assigned';
-        assigne=this.submitTicketForm.value.assignChamp.ldap;
-      }
-      this.issueData = {
+    let labelsString = '';
+    let assigne = null;
+    if (this.submitTicketForm.value.assignChamp.name != 'UMP Support Team') {
+      labelsString = 'ump-champion-assigned';
+      assigne = this.submitTicketForm.value.assignChamp.ldap;
+    }
+    this.issueData = {
       fields: {
         project: {
           key: 'APA',
@@ -204,21 +204,26 @@ export class UmpTicketComponent implements OnInit {
 
   }
 
-  confirmTicket(){
+  confirmTicket(watcher) {
 
     this.submitting = true;
-    
+
     let snackBarRef = this.snackBar.open('Loading ... ');
 
     console.log(JSON.stringify(this.issueData));
+    console.log(JSON.stringify(watcher.split(',')));
+
     this.jiraIntegrationService.postTicket(JSON.stringify(this.issueData)).subscribe(
       (response) => {
         snackBarRef.dismiss();
         this.notify.showSuccess('Ticket Added tikcet key : ' + response.key);
+        if (watcher.length > 0)
+          this.jiraIntegrationService.addWatcher(JSON.stringify(watcher.split(',')), response.key);
+
         this.uploadAttachments(response.key);
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
         this.submitting = false;
-        window.open('https://jira01.corp.linkedin.com:8443/browse/'+response.key,"blank");
+        window.open('https://jira01.corp.linkedin.com:8443/browse/' + response.key, "blank");
       },
       (errorResponce) => {
         console.log(errorResponce);
