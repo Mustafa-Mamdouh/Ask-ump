@@ -39,7 +39,11 @@ export class UmpTicketComponent implements OnInit {
   businessLineData = ['Data Science', 'BDE', 'LTI/ LSI', 'LTS', 'Fkagship', 'LMS', 'LLS', 'Other'];
   hasChampData = ['Yes', 'No'];
   isUmpChampData = ['Yes', 'No'];
-  championsNames = [{ name: 'Feiran Ji', ldap: 'feji' }, { name: 'Soumasish Goswami', ldap: 'sogoswam' }, { name: 'Jenny', ldap: 'hwu1' }, { name: 'shuoze wang', ldap: 'shuozwan' }, { name: 'Aash Anand', ldap: 'aanand' }, { name: 'Aditya Choudhary', ldap: 'adchoudh' }, { name: 'UMP Support Team', ldap: null }];
+  championsNames = [{ name: 'Feiran Ji', ldap: 'feji' }, { name: 'Soumasish Goswami', ldap: 'sogoswam' }, 
+  { name: 'Jenny', ldap: 'hwu1' }, { name: 'shuoze wang', ldap: 'shuozwan' }, 
+  { name: 'Aash Anand', ldap: 'aanand' }, { name: 'Aditya Choudhary', ldap: 'adchoudh' },
+   { name: 'Yash Kelkar', ldap: 'ykelkar@linkedin.com' },{ name: 'Ronnie Ghose', ldap: 'rghose' },
+   { name: 'Chris Dong', ldap: 'cdong' },{ name: 'UMP Support Team', ldap: null }];
 
   isHasChampDisabled=true;
   // Files 
@@ -266,7 +270,7 @@ export class UmpTicketComponent implements OnInit {
       this.isHasChampDisabled=false;
     } else {
       this.isHasChampDisabled=true;
-      this.submitTicketForm.patchValue({assignChamp:this.championsNames[6.]});
+      this.submitTicketForm.patchValue({assignChamp:this.championsNames[this.championsNames.length-1]});
 
     }
     console.log(this.isHasChampDisabled);
